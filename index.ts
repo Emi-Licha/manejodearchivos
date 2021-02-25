@@ -19,12 +19,12 @@ app.get('/productos', (req, res) => {
 
 app.post('/productos', (req, res) => {
     let { nombre, precio} = req.body
-    const id = productos.length + 1;
+    let id = productos.length + 1;
     let producto = {
-        
+        id,
         nombre,
-        precio,
-        id
+        precio
+       
     }
     
     productos.push(producto)
@@ -49,9 +49,9 @@ app.delete('/productos', (req,res)=>{
 })
 app.get('/productos/:id', (req,res) =>{
     const id = req.params.id
-    const producto = productos.find(producto => producto.id === id)
+    const producto = productos.find(producto => producto.id == id)
     if (!producto){
-        res.send('Producto no encontrado')
+        res.json({'error': 'Producto no encontrado'})
     }
     res.json(producto)
 })
